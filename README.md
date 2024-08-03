@@ -46,7 +46,7 @@ sudo apt update
 ### 问题描述
 （VM网络连接为NAT模式，主机网络正常）
 - 启动虚拟机后，右上角没有网络连接图案（只有电源图案和音量图案）
-- ping www.baidu.com失败， shell输出“ping: www.baidu.com: Temporary failure in name resolution”
+- ping www.baidu.com 失败， shell输出“ping: www.baidu.com: Temporary failure in name resolution”
 - 打开浏览器firefox不能访问各种网站
 
 ### 解决方法
