@@ -66,3 +66,27 @@ service NetworkManager start
 
 ### 问题原因（推测）
 主机的VPN不稳定，选择的节点不断变化导致的？
+
+
+## VMware下，Ubuntu虚拟机添加（扩展）磁盘大小的方法
+> 我一开始只觉得20GB的disk大小够用了（当然由于需要作为系统盘，系统也占用了不少）  
+> 但是后来逐渐发现不太够用了怎么办？  
+> 并且这个虚拟机上已经安装好的环境和数据，我懒得再在一个新虚拟机上重新安装/复制一遍，怎么办？  
+
+诶，VMWare有扩展磁盘容量的功能————但是这个功能具体怎么用呢？添加了之后没有发现磁盘空间变大啊？  
+
+可以使用gparted工具和gparted-live操作系统（这里应该是OS吧）  
+
+### 解决方案来源
+```
+sudo apt-get install gparted
+```
+&  
+https://blog.csdn.net/Meteor_s/article/details/85068524  
+
+### 具体操作步骤
+（有点晚了今天，我先把要写的放在这，之后补上，有需要可以先看参考链接）  
+- [ ] Ubuntu内gparted工具的使用(*unnecessary)
+- [ ] VMware虚拟机相关设置
+- [ ] 启动gparted-live操作系统(因为需要对分区在解锁状态下才能操作)
+- [ ] 完成磁盘空间分配
