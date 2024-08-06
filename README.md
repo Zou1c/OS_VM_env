@@ -78,15 +78,67 @@ service NetworkManager start
 可以使用gparted工具和gparted-live操作系统（这里应该是OS吧）  
 
 ### 解决方案来源
-```
-sudo apt-get install gparted
-```
-&  
+  
 https://blog.csdn.net/Meteor_s/article/details/85068524  
 
 ### 具体操作步骤
 （有点晚了今天，我先把要写的放在这，之后补上，有需要可以先看参考链接）  
-- [ ] Ubuntu内gparted工具的使用(*unnecessary)
-- [ ] VMware虚拟机相关设置
-- [ ] 启动gparted-live操作系统(因为需要对分区在解锁状态下才能操作)
-- [ ] 完成磁盘空间分配
+
+
+#### 第0步 使用gparted工具管理磁盘分区
+(这一步不是必须的)  
+首先下载gparted工具:  
+```
+sudo apt-get install gparted
+```
+然后就可以使用gparted指令，对虚拟机的磁盘的不同分区(partition)进行操作了，不过你正在用的partition肯定是锁着的，操作不了(毕竟是你可能正在使用的磁盘)，所以要通过启动另一个操作系统来进行操作  
+
+*事实上，这个操作系统gparted-live的界面长得跟gparted工具的基本一样*
+
+#### 第1步 VMware虚拟机相关设置
+(我使用的VMware版本是17 pro, 版本号17.5.2)  
+- 首先我们需要下载gparted-live OS的映像文件(这里可以选与自己Linux操作系统类型相同的版本，比如你的ubuntu带有"amd64"，那你也下一个amd64的)
+```
+https://gparted.org/download.php
+```
+保存好这个.iso文件  
+
+- 选择你想增大磁盘空间的虚拟机，编辑虚拟机——点击"编辑虚拟机设置"  
+1. 选择"硬盘", 找到"扩展"按钮，点击它
+2. 此时你会被要求填入扩展后的虚拟磁盘大小，比如你原来是20GB，想再增大20GB，那就填入40GB
+3. 确认
+
+#### 第2步 启动gparted-live操作系统
+(我想应该可以认为gparted-live是一个专门管理磁盘的OS)  
+那么如何启动它呢？  
+- 我们需要通过进入BIOS Menu来选择使用CD-ROM启动方式  
+
+- 但，在此之前，先让我们更换操作系统：  
+在虚拟机设置中，将CD/DVD(SATA)所使用的映像文件更换为我们第1步所下载的gparted-live-xxxxx.iso（这里要先记一下你所使用的原来的映像文件和路径）  
+> 如果你有多个CD/DVD，就把他们使用的映像文件都换成gparted-live（反正我是这么做的，并且生效了; 否则可能还是启动Ubuntu"安装系统"）
+
+- 进入BIOD Menu
+在虚拟机启动的最初，会出现一个界面让你能够进入BIOS Menu，但它出现的时间很短，你可能不好操作，并且不同OS进入BIOS Menu的按键可能不一样
+
+所以你可以找到虚拟机对应的vmx“配置文件”，在其中加入一行:  
+```
+bios.bootDelay = "10000"
+```
+这样你就有10秒的时间来看清该按什么键了  
+(我是按的"Esc"键)  
+
+然后选择有CD-ROM的那一行  
+
+之后会出现一个gparted-live的安装界面，选择默认的“Gparted Live”，之后一直按回车(enter)就能启动gparted-live系统了
+
+
+#### 第3步 操作分区，完成磁盘空间分配
+这部分考虑到每个系统的partition位置有可能不一样，所以就抽象地描述一下，相信你能做到的！  
+
+> 简单来说，就是把一块unallocated区域分配给你正在使用的磁盘空间(partition)  
+> 需要的条件是：这个unallocated区域和你的主partition是连着的
+>
+> 而你可以进行的操作有：修改partition大小；划分一个空闲的partition哪部分是可分配的，哪部分需要干别的
+
+我这个VMware版本下，扩展后会在partition3后面给一个新的partition4，而我要做的就是让partition4前半部分尽可能多的空间标记为unallocated，  
+然后修改partition3的size时就可以把这部分unallocated也纳入partition3了，于是磁盘空间扩展就完成了
