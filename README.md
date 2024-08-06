@@ -111,14 +111,14 @@ https://gparted.org/download.php
 #### 第2步 启动gparted-live操作系统
 (我想应该可以认为gparted-live是一个专门管理磁盘的OS)  
 那么如何启动它呢？  
-- 我们需要通过进入BIOS Menu来选择使用CD-ROM启动方式  
+- 我们需要通过进入BIOS, 通过Boot Menu来选择使用CD-ROM启动方式  
 
 - 但，在此之前，先让我们更换操作系统：  
 在虚拟机设置中，将CD/DVD(SATA)所使用的映像文件更换为我们第1步所下载的gparted-live-xxxxx.iso（这里要先记一下你所使用的原来的映像文件和路径）  
 > 如果你有多个CD/DVD，就把他们使用的映像文件都换成gparted-live（反正我是这么做的，并且生效了; 否则可能还是启动Ubuntu"安装系统"）
 
 - 进入BIOD Menu
-在虚拟机启动的最初，会出现一个界面让你能够进入BIOS Menu，但它出现的时间很短，你可能不好操作，并且不同OS进入BIOS Menu的按键可能不一样
+在虚拟机启动的最初，会出现一个BIOS界面让你能够进入Boot Menu，但它出现的时间很短，你可能不好操作，并且不同VMWare进入Boot Menu的按键可能不一样(我猜的)
 
 所以你可以找到虚拟机对应的vmx“配置文件”，在其中加入一行:  
 ```
