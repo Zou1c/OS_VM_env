@@ -15,7 +15,7 @@
 > 所以可以认为 换源 就是更换了你所选择的下载来源的设备（但是是以URL的形式表示
 > 
 > ...总的来说，"源"也就是软件来源...
-### 方法(清华的)
+### 方法(清华源的)
 先看看这个地址:  
 ```
 https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/
@@ -42,6 +42,8 @@ sudo apt update
 sudo apt update
 ```
 
+---
+
 ## VMware 下Ubuntu 22.04.04虚拟机网络连接问题
 ### 问题描述
 （VM网络连接为NAT模式，主机网络正常）
@@ -67,6 +69,7 @@ service NetworkManager start
 ### 问题原因（推测）
 主机的VPN不稳定，选择的节点不断变化导致的？
 
+---
 
 ## VMware下，Ubuntu虚拟机添加（扩展）磁盘大小的方法
 > 我一开始只觉得20GB的disk大小够用了（当然由于需要作为系统盘，系统也占用了不少）  
@@ -142,3 +145,8 @@ bios.bootDelay = "10000"
 
 我这个VMware版本下，扩展后会在partition3后面给一个新的partition4，而我要做的就是让partition4前半部分尽可能多的空间标记为unallocated，  
 然后修改partition3的size时就可以把这部分unallocated也纳入partition3了，于是磁盘空间扩展就完成了
+
+---
+
+## Ubuntu24.04-desktop开机黑屏，虚拟机繁忙问题
+打开虚拟机设置，在“硬件”-“显示器”-“3D图形”那，取消勾选 加速3D图形  
